@@ -16,6 +16,7 @@
 open Clflags
 
 let output_prefix name =
+  print_endline name;
   let oname =
     match !output_name with
     | None -> name
@@ -571,6 +572,7 @@ let process_action
     (ppf, implementation, interface, ocaml_mod_ext, ocaml_lib_ext) action =
   match action with
   | ProcessImplementation name ->
+      print_endline name;
       readenv ppf (Before_compile name);
       let opref = output_prefix name in
       implementation ppf name opref;
