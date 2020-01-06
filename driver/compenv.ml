@@ -14,6 +14,58 @@
 (**************************************************************************)
 
 open Clflags
+(* open Hashtbl *)
+(* open Captable *)
+(* open Str *)
+
+(******************************************************* CAP implementation *******************************************************)
+let cap_hash = Hashtbl.create 1000000
+let file_hash = Hashtbl.create 1000
+
+let create_cap_entry func_name cap_id =
+  if (Hashtbl.mem cap_hash func_name) then begin 
+        print_endline ("Function entry already exists");
+        ()
+    end
+    else begin
+        let _ = Hashtbl.add cap_hash func_name cap_id in
+        ()
+    end
+
+let get_cap_id func_name = 
+  if (Hashtbl.mem cap_hash func_name) then begin
+      let cap_id = Hashtbl.find cap_hash func_name in
+        cap_id
+    end
+    else -1
+
+let create_file_entry file_name =
+    if (Hashtbl.mem file_hash file_name) then begin 
+        print_endline ("File already processed");
+        ()
+    end
+    else begin
+        let _ = Hashtbl.add file_hash file_name 1 in
+        ()
+    end
+
+let get_file_status file_name = 
+    if (Hashtbl.mem file_hash file_name) then 1
+    else 0
+
+
+let print_hash_entry func_name cap_id =
+  let _ = print_endline (func_name^":"^(string_of_int cap_id)) in
+    ()
+
+let dump_cap_table () = 
+  let _ = Hashtbl.iter print_hash_entry cap_hash in
+    ()
+
+let dump_file_table () = 
+    let _ = Hashtbl.iter print_hash_entry file_hash in 
+    ()
+(******************************************************* END OF CAP IMPLEMENTATION *******************************************************)
 
 let output_prefix name =
   print_endline name;
@@ -552,10 +604,31 @@ let get_objfiles ~with_ocamlparam =
   else
     List.rev !objfiles
 
-
-
-
-
+let process_cap_file name =
+  if (get_file_status name == 1) then ()
+  else
+    begin
+        let cap_filename = (Filename.remove_extension name) ^ ".cap" in
+        if (Sys.file_exists cap_filename == false) then ()
+        else 
+          begin
+            let chan = open_in cap_filename in
+            try
+              while true; do
+                let line = input_line chan in
+                let _ = print_endline line in
+                (* let fun_cap = Str.split (Str.regexp ":") line in *)
+                let fun_cap = String.split_on_char ':' line in
+                let func_name = List.nth fun_cap 0 in
+                let cap_id = int_of_string (List.nth fun_cap 1) in
+                create_cap_entry func_name cap_id;      
+                print_int cap_id;
+              done;
+            with End_of_file ->
+              close_in chan;
+              ()
+          end
+    end;;
 
 type deferred_action =
   | ProcessImplementation of string
@@ -573,6 +646,7 @@ let process_action
   match action with
   | ProcessImplementation name ->
       print_endline name;
+      process_cap_file name;
       readenv ppf (Before_compile name);
       let opref = output_prefix name in
       implementation ppf name opref;

@@ -20,6 +20,7 @@ open Reg
 open Mach
 open Linearize
 open Emitaux
+open Compenv
 
 (* Layout of the stack.  The stack is kept 16-aligned. *)
 
@@ -556,6 +557,10 @@ let fundecl fundecl =
   `	{emit_string code_space}\n`;
   `	.align	2\n`;
   `{emit_symbol fundecl.fun_name}:\n`;
+  let function_name_without_id = String.sub fundecl.fun_name 0 (String.rindex fundecl.fun_name '_') in
+  let cap_id = get_cap_id function_name_without_id in
+  let _ = print_endline (function_name_without_id ^ " : " ^ (string_of_int cap_id)) in
+  ` # checkcap {emit_int cap_id}\n`;
   let n = frame_size() in
   emit_stack_adjustment (-n);
   if !contains_calls then store_ra n;
