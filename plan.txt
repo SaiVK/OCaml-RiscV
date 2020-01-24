@@ -1,0 +1,34 @@
+TEE support - compartmentalization support
+
+Task 1: Add compatibility for .cap files
+
+(TODO, Help required: to have a separate captable file for implementation, because of this "not able to find cmi file" included the captable code in compenv)
+
+cap_hash.ml(i) in utils/
+in Makefile, add utils/cap_hash.cmo line 86-87
+		
+		open Hashtbl (in emit.mlp)
+	=>	let cap_id = Hashtbl.find cap_hash fundecl.fun_name
+			emit.mlp line 558, after
+		In emit.ml file this will be there(emit_string "checkcap"; emit_int cap_id; emit_string "\n");
+	=>	`	checkcap {emit_int cap_id}\n`;
+	
+		
+	in driver/compenv.ml, in main.ml you don't have access to the filename.
+		
+
+Task 2: Mirror exception semantics for shadow stack
+
+Task 3: Tail call optimization	
+	(riscv-spec.pdf pg 130)
+	csrr rd, csr csrrs rd, csr, x0 Read CSR 
+	csrw csr, rs csrrw x0, csr, rs Write CSR
+	csrs csr, rs csrrs x0, csr, rs Set bits in CSR
+	csrc csr, rs csrrc x0, csr, rs Clear bits in CSR
+
+	Use any of the above to set tailcall_csr bit
+
+	Why substitution only for free variables? Free vs bound vs binding? Isn't substitution on bound variables equal go renaming? Two abstraction terms in place of ( M N ), what does this mean?
+	Beta Reduction not a substitution? Beta Reduct should be variable only or can be a lamda term like abstraction also? How to make Beta be symmetric?
+	How did they define the succ function as nfx. f(nfx) and also for add & mult how did they define?
+	How iszero function formed?

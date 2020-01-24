@@ -1,0 +1,29 @@
+Dependent type programming in Coq. Not in Ocaml.
+Coq has pure type System. So Types are types.
+Infinte hierarchy of types.
+List is a type constructor/function, that takes a type and creates a new type.
+2 : (discriminate) # this focusses on the 2nd case alone. Curly braces to focus on one sub proof/case
+
+All logical statements have type Prop
+
+How to understand Theorem type/variable?
+Propositional vs First Order vs Linear Logic ? STLC : SystemF : Session Types
+
+
+https://softwarefoundations.cis.upenn.edu/lf-current/toc.html
+https://softwarefoundations.cis.upenn.edu/plf-current/toc.html
+https://softwarefoundations.cis.upenn.edu/vfa-current/toc.html
+https://softwarefoundations.cis.upenn.edu/qc-current/toc.html
+
+https://cel.archives-ouvertes.fr/file/index/docid/459139/filename/coq-hurry.pdf
+https://ilyasergey.net/pnp/pnp.pdf
+https://coq.inria.fr/tutorial-nahas
+
+Notes:
+	1). We use "Inductive:" to define types to signify the members of the set inductively. Eg: Natural numbers set
+
+Doubts:
+	1). What is the S (Successor constructor part of Nat in Coq)? Where is it defined? Is it defined by default w.r.t example provided in the book?
+	2). Why discriminate || trivial in mon_preceds_tues
+	
+	
