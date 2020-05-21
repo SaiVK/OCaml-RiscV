@@ -68,7 +68,7 @@ let dump_file_table () =
 (******************************************************* END OF CAP IMPLEMENTATION *******************************************************)
 
 let output_prefix name =
-  print_endline name;
+  (* print_endline name; *)
   let oname =
     match !output_name with
     | None -> name
@@ -616,7 +616,7 @@ let process_cap_file name =
             try
               while true; do
                 let line = input_line chan in
-                let _ = print_endline line in
+                (* let _ = print_endline line in *)
                 (* let fun_cap = Str.split (Str.regexp ":") line in *)
                 let fun_cap = String.split_on_char ':' line in
                 let func_name = List.nth fun_cap 0 in
@@ -645,7 +645,7 @@ let process_action
     (ppf, implementation, interface, ocaml_mod_ext, ocaml_lib_ext) action =
   match action with
   | ProcessImplementation name ->
-      print_endline name;
+      (* print_end *)line name;
       process_cap_file name;
       readenv ppf (Before_compile name);
       let opref = output_prefix name in
