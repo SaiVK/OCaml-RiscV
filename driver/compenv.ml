@@ -608,7 +608,7 @@ let process_cap_file name =
   if (get_file_status name == 1) then ()
   else
     begin
-        let cap_filename = (Filename.remove_extension name) ^ ".cap" in
+        let cap_filename = (Filename.remove_extension name) ^ "_cap_tee.ml" in
         if (Sys.file_exists cap_filename == false) then ()
         else 
           begin
@@ -618,11 +618,15 @@ let process_cap_file name =
                 let line = input_line chan in
                 (* let _ = print_endline line in *)
                 (* let fun_cap = Str.split (Str.regexp ":") line in *)
-                let fun_cap = String.split_on_char ':' line in
-                let func_name = List.nth fun_cap 0 in
-                let cap_id = int_of_string (List.nth fun_cap 1) in
-                create_cap_entry func_name cap_id;      
-                print_int cap_id;
+                let c1 = String.get line 0 in
+                let c2 = '(' in
+                let c3 = '*' in
+                if ((c1 != c2) && (c1 != c3)) then
+                  let fun_cap = String.split_on_char ':' line in
+                  let func_name = List.nth fun_cap 0 in
+                  let cap_id = int_of_string (List.nth fun_cap 1) in
+                  create_cap_entry func_name cap_id;
+                  (* print_int cap_id; *)
               done;
             with End_of_file ->
               close_in chan;
