@@ -649,7 +649,7 @@ let process_action
     (ppf, implementation, interface, ocaml_mod_ext, ocaml_lib_ext) action =
   match action with
   | ProcessImplementation name ->
-      (* print_end *)line name;
+      (* print_end line name;*)
       process_cap_file name;
       readenv ppf (Before_compile name);
       let opref = output_prefix name in
