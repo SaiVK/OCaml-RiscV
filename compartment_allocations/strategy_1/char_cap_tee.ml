@@ -1,0 +1,11 @@
+(*
+camlStdlib__char__chr:254
+camlStdlib__char__escaped:254
+camlStdlib__char__lowercase:254
+camlStdlib__char__uppercase:254
+camlStdlib__char__lowercase_ascii:254
+camlStdlib__char__uppercase_ascii:254
+camlStdlib__char__compare:254
+camlStdlib__char__equal:254
+camlStdlib__char_:255
+*)
