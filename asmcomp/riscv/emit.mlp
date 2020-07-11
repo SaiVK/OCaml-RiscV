@@ -563,7 +563,7 @@ let fundecl fundecl =
   let function_name_without_id = String.sub fundecl.fun_name 0 (String.rindex fundecl.fun_name '_') in
   let cap_id = get_cap_id function_name_without_id in
   let _ = print_endline (function_name_without_id ^ " : " ^ fundecl.fun_name ^ " : " ^ (string_of_int cap_id)) in
-  `# checkcap {emit_int cap_id}\n`;
+  `	checkcap	{emit_int cap_id}\n`;
   let n = frame_size() in
   emit_stack_adjustment (-n);
   if !contains_calls then store_ra n;
