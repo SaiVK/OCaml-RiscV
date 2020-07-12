@@ -37,7 +37,7 @@ let get_cap_id func_name =
       let cap_id = Hashtbl.find cap_hash func_name in
         cap_id
     end
-    else -1
+    else 254
 
 let create_file_entry file_name =
     if (Hashtbl.mem file_hash file_name) then begin 
