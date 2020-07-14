@@ -131,6 +131,6 @@ camlStdlib__format__pp_set_all_formatter_output_functions:8
 camlStdlib__format__pp_get_all_formatter_output_functions:8
 camlStdlib__format__bprintf:8
 camlStdlib__format__k:8
-camlStdlib__format_:255
+camlStdlib__format_:108
 camlStdlib__format__fun:8
 *)
