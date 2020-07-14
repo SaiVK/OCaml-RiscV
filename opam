@@ -14,6 +14,7 @@ depends: [
 ]
 build: [
 	["sh" "./configure" "--target" "riscv64-unknown-linux-gnu" "-prefix" "%{prefix}%/riscv-sysroot" "-no-ocamldoc" "-no-debugger" "-target-bindir" "%{prefix}%/riscv-sysroot/bin"]
+	[make "add-cap-files"]
 	["sh" "./build.sh"]
 ]
 install: [

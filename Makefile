@@ -33,6 +33,13 @@
 include config/Makefile
 include Makefile.common
 
+# For copying cap_tee files to stdlib/
+.PHONY: add-cap-files
+
+add-cap-files:
+	./choose_compartment_strategy.sh $(COMPARTMENT_STRATEGY_CHOICE)
+
+
 # For users who don't read the INSTALL file
 .PHONY: defaultentry
 defaultentry:
