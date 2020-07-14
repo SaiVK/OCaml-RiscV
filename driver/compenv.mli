@@ -78,9 +78,9 @@ val process_deferred_actions :
   unit
 
 (* CAP INTERFACE *)
-val create_cap_entry: string-> int -> unit
+val create_cap_entry: string -> int -> unit
 
-val get_cap_id: string-> int
+val get_cap_id: string -> string -> int
 
 val dump_cap_table: unit -> unit
 

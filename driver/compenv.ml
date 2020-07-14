@@ -32,12 +32,14 @@ let create_cap_entry func_name cap_id =
         ()
     end
 
-let get_cap_id func_name = 
-  if (Hashtbl.mem cap_hash func_name) then begin
-      let cap_id = Hashtbl.find cap_hash func_name in
+let get_cap_id func_name_without_id func_name = 
+  let c1 = "caml_program" in
+  if (Hashtbl.mem cap_hash func_name_without_id) then begin
+      let cap_id = Hashtbl.find cap_hash func_name_without_id in
         cap_id
     end
-    else 254
+  else if(func_name = c1) then 255
+  else 254
 
 let create_file_entry file_name =
     if (Hashtbl.mem file_hash file_name) then begin 

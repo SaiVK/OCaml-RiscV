@@ -561,7 +561,7 @@ let fundecl fundecl =
   `	.align	2\n`;
   `{emit_symbol fundecl.fun_name}:\n`;
   let function_name_without_id = String.sub fundecl.fun_name 0 (String.rindex fundecl.fun_name '_') in
-  let cap_id = get_cap_id function_name_without_id in
+  let cap_id = get_cap_id function_name_without_id fundecl.fun_name in
   let _ = print_endline (function_name_without_id ^ " : " ^ fundecl.fun_name ^ " : " ^ (string_of_int cap_id)) in
   `	checkcap	{emit_int cap_id}\n`;
   let n = frame_size() in
