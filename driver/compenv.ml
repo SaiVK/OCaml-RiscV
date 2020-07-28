@@ -23,7 +23,7 @@ let cap_hash = Hashtbl.create 1000000
 let file_hash = Hashtbl.create 1000
 
 let is_255_function func_name =
-  List.mem func_name ["caml_apply2"; "caml_program"]
+  List.mem func_name ["caml_apply2"; "caml_program"; "caml_curry2_1"]
 
 let create_cap_entry func_name cap_id =
   if (Hashtbl.mem cap_hash func_name) then begin 
