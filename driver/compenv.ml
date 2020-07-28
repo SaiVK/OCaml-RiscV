@@ -22,6 +22,9 @@ open Clflags
 let cap_hash = Hashtbl.create 1000000
 let file_hash = Hashtbl.create 1000
 
+let is_255_function func_name =
+  List.mem func_name ["caml_apply2"; "caml_program"]
+
 let create_cap_entry func_name cap_id =
   if (Hashtbl.mem cap_hash func_name) then begin 
         print_endline ("Function entry already exists");
@@ -33,12 +36,12 @@ let create_cap_entry func_name cap_id =
     end
 
 let get_cap_id func_name_without_id func_name = 
-  let c1 = "caml_program" in
+  (* let c1 = "caml_program" in *)
   if (Hashtbl.mem cap_hash func_name_without_id) then begin
       let cap_id = Hashtbl.find cap_hash func_name_without_id in
         cap_id
     end
-  else if(func_name = c1) then 255
+  else if(is_255_function func_name) then 255
   else 254
 
 let create_file_entry file_name =
