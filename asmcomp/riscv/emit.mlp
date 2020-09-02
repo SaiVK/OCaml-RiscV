@@ -305,17 +305,17 @@ let emit_instr i =
       let n = frame_size() in
       if !contains_calls then reload_ra n;
       emit_stack_adjustment n;
-      `	csrwi	utailcall, 1\n`;
+      `	#csrwi	utailcall, 1\n`;
       `	jr	{emit_reg i.arg.(0)}\n`
   | Lop(Itailcall_imm {func; label_after = _}) ->
       if func = !function_name then begin
-        `	csrwi	utailcall, 1\n`;
+        `	#csrwi	utailcall, 1\n`;
         `	j	{emit_label !tailrec_entry_point}\n`
       end else begin
         let n = frame_size() in
         if !contains_calls then reload_ra n;
         emit_stack_adjustment n;
-        `	csrwi	utailcall, 1\n`;
+        `	#csrwi	utailcall, 1\n`;
         `	tail	{emit_symbol func}\n`
       end
   | Lop(Iextcall{func; alloc = true; label_after = label}) ->
